@@ -1,0 +1,19 @@
+from machine import Pin, ADC
+
+import time
+import datetime
+
+
+water = ADC(Pin(26))
+relay = Pin(27, Pin.OUT)
+
+while True:
+values = water.read_u16()
+   
+      if values <= 40000:
+        relay.value(1)
+      else:
+        relay.value(0)
+         
+         
+    time.sleep(5)     
