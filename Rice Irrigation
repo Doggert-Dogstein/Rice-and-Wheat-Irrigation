@@ -1,19 +1,26 @@
-from machine import Pin, ADC
+int sensorAPin = 23;
+int sensorBPin = 22;
+int relayPin = 18;
 
-import time
-import datetime
+void setup() {
 
+  pinMode(sensorAPin, INPUT);
+  pinMode(sensorBPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+  
+  digitalWrite(relayPin, HIGH);
+}
 
-water = ADC(Pin(26))
-relay = Pin(27, Pin.OUT)
+void loop() {
 
-while True:
-values = water.read_u16()
-   
-      if values <= 40000:
-        relay.value(1)
-      else:
-        relay.value(0)
-         
-         
-    time.sleep(5)     
+  if (digitalRead(sensorAPin) == LOW) {
+    digitalWrite(relayPin, LOW)
+
+    while (digitalRead(sensorBPin) == LOW) {
+
+      delay(1000);
+    }
+
+    digitalWrite(relayPin, HIGH);
+  }
+}
