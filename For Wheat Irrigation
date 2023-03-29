@@ -1,20 +1,28 @@
-from machine import Pin, ADC
 
-import time
-import datetime
+int sensorPin = 23;
 
+int relayPin = 18;
 
-soila = ADC(Pin(26))
-soilb = ADC(Pin(28))
-relay = Pin(27, Pin.OUT)
+void setup() {
 
-while True:
-   a = soila.read_u16()
-   b = soilb.read_u16()
-      if a <= 40000:
-        relay.value(1)
-      if b >= 40000:
-        relay.value(0)
-         
-         
-    time.sleep(5)     
+  pinMode(sensorPin, INPUT);
+  
+  pinMode(relayPin, OUTPUT);
+}
+
+void loop() {
+
+  int sensorValue = digitalRead(sensorPin);
+
+  
+  if (sensorValue == HIGH) {
+    digitalWrite(relayPin, LOW);
+  } else {
+   
+    digitalWrite(relayPin, HIGH);
+    
+    delay(60000); // 1 minute delay
+    
+    digitalWrite(relayPin, LOW);
+  }
+}
