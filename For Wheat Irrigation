@@ -1,8 +1,5 @@
-
 int sensorPin = 23;
-
 int relayPin = 18;
-
 void setup() {
 
   pinMode(sensorPin, INPUT);
